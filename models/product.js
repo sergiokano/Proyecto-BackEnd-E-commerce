@@ -10,14 +10,13 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Product.belongsTo(models.User);
+    
     }
   }
   Product.init({
     name: DataTypes.STRING,
     price: DataTypes.STRING,
-    description: DataTypes.STRING,
-    UserId: DataTypes.INTEGER
+    description: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Product',
