@@ -1,5 +1,5 @@
 
-const { Product } = require('../models/index.js');
+const { Product, Sequelize } = require('../models/index.js');
 
 const { Op } = Sequelize;
 
@@ -73,7 +73,38 @@ const ProductController = {
             .then(product => res.send(product))
     },
 
+    getOneByPrice(req, res) {
+        Product.findOne({
+            where: {
+                price: {
+                    [Op.like]: `%${req.params.price}%`
+                }
+            },
+        })
+            .then(product => res.send(product))
+    },
 
+    orderByPrice(req, res) {
+
+        Product.findAll({
+
+            order: [
+                ['price', 'DESC'],
+            ]
+
+        })
+
+            .then(Products => res.send(Products))
+
+            .catch(err => {
+
+                console.log(err)
+
+                res.status(500).send({ message: 'Error loading categories' })
+
+            })
+
+    }
 }
 
 module.exports = ProductController
