@@ -1,6 +1,8 @@
 
 const { Product } = require('../models/index.js');
 
+const { Op } = Sequelize;
+
 const ProductController = {
 
     create(req, res) {
@@ -44,6 +46,33 @@ const ProductController = {
             'El producto ha sido eliminado con éxito'
         )
     },
+
+    async update(req, res) {
+        await Product.update({ ...req.body },
+            {
+                where: {
+                    id: req.params.id
+                }
+            })
+        res.send('Producto actualizado con éxito');
+    },
+
+    getById(req, res) {
+        Product.findByPk(req.params.id)
+            .then(post => res.send(post))
+    },
+
+    getOneByName(req, res) {
+        Product.findOne({
+            where: {
+                name: {
+                    [Op.like]: `%${req.params.name}%`
+                }
+            },
+        })
+            .then(product => res.send(product))
+    },
+
 
 }
 
