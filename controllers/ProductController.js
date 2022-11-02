@@ -13,24 +13,6 @@ const ProductController = {
 
     },
 
-    createProduct(req, res) {
-
-        let sql = `INSERT INTO Products (name, price, description) values
-        
-        ('TV', '4000', 'SmarTV')`;
-
-        db.query(sql, (err, result) => {
-
-            if (err) throw err;
-
-            console.log(result);
-
-            res.send("Product added...");
-
-        });
-
-    },
-
     //El endpoint de traer productos debe mostrarse junto a la categoría o categorías que pertenece
     getAll(req, res) {
 

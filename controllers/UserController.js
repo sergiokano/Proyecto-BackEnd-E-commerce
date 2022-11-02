@@ -1,4 +1,4 @@
-const db = require("../config/database")
+
 
 const { User } = require('../models/index.js');
 
