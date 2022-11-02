@@ -86,6 +86,16 @@ const UserController = {
         }
 
     },
+    async delete(req, res) {
+        await User.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+        res.send(
+            'El usuario ha sido eliminado con éxito'
+        )
+    }
 
 }
 
