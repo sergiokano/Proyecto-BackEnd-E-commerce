@@ -4,6 +4,13 @@ const router = express.Router();
 
 const UserController = require('../controllers/UserController')
 
-router.post('/create',UserController.create)
+const {authentication} = require('../middleware/authentication')
+
+
+router.post('/create', UserController.create)
+
+router.post('/login',UserController.login)
+
+router.delete('/logout', authentication, UserController.logout)
 
 module.exports = router;
