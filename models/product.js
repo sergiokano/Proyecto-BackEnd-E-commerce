@@ -10,13 +10,13 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-    
+
     }
   }
   Product.init({
-    name: DataTypes.STRING,
-    price: DataTypes.STRING,
-    description: DataTypes.STRING
+    name: { type: DataTypes.STRING, validate: { notEmpty: { args: true, msg: "no empty" } } },
+    price: { type: DataTypes.STRING, validate: { notEmpty: { args: true, msg: "no empty" } } },
+    description: { type: DataTypes.STRING, validate: { notEmpty: { args: true, msg: "no empty" } } }
   }, {
     sequelize,
     modelName: 'Product',

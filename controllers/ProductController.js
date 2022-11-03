@@ -5,13 +5,15 @@ const { Op } = Sequelize;
 
 const ProductController = {
 
-    create(req, res) {
+    async create(req, res) {
+        try {
+            const product = await Product.create({ ...req.body })
+            res.status(201).send({ message: 'Product published', product })
 
-        Product.create({ ...req.body })
-
-            .then(Product => res.status(201).send({ message: 'Publicación creada con éxito', Product }))
-
-            .catch(console.error)
+        } catch (error) {
+            console.error(error)
+            res.status(500).send({ msg: "Error while creating product", error })
+        }
 
     },
 
@@ -37,72 +39,100 @@ const ProductController = {
     },
 
     async delete(req, res) {
-        await Product.destroy({
-            where: {
-                id: req.params.id
-            }
-        })
-        res.send(
-            'El producto ha sido eliminado con éxito'
-        )
-    },
-
-    async update(req, res) {
-        await Product.update({ ...req.body },
-            {
+        try {
+            const product = await Product.destroy({
                 where: {
                     id: req.params.id
                 }
             })
-        res.send('Producto actualizado con éxito');
+            res.status(200).send({ message: 'Product deleted', product })
+        }
+        catch (error) {
+            console.error(error);
+            res.status(500).send({ msg: "Error deleting product", error });
+        }
     },
 
-    getById(req, res) {
-        Product.findByPk(req.params.id)
-            .then(post => res.send(post))
+
+
+    async update(req, res) {
+        try {
+            const product = await Product.update({ ...req.body },
+                {
+                    where: {
+                        id: req.params.id
+                    }
+                })
+            res.status(200).send({ message: 'Product updated', product })
+        }
+        catch (error) {
+            console.error(error);
+            res.status(500).send({ msg: "Error updating product", error });
+        }
+
     },
 
-    getOneByName(req, res) {
-        Product.findOne({
-            where: {
-                name: {
-                    [Op.like]: `%${req.params.name}%`
-                }
-            },
-        })
-            .then(product => res.send(product))
+    async getById(req, res) {
+        try {
+            const product = await Product.findByPk(req.params.id)
+            res.status(200).send({ message: 'Product selected by id', product })
+        }
+        catch (error) {
+            console.error(error);
+            res.status(500).send({ msg: "Error getting product", error });
+        }
     },
 
-    getOneByPrice(req, res) {
-        Product.findOne({
-            where: {
-                price: {
-                    [Op.like]: `%${req.params.price}%`
-                }
-            },
-        })
-            .then(product => res.send(product))
+    async getOneByName(req, res) {
+        try {
+            const product = await Product.findOne({
+                where: {
+                    name: {
+                        [Op.like]: `%${req.params.name}%`
+                    }
+                },
+            })
+            res.status(200).send({ message: 'Product selected by name', product })
+        }
+        catch (error) {
+            console.error(error);
+            res.status(500).send({ msg: "Error getting product", error });
+        }
     },
 
-    orderByPrice(req, res) {
+    async getOneByPrice(req, res) {
+        try {
+            const product = await Product.findOne({
+                where: {
+                    price: {
+                        [Op.like]: `%${req.params.price}%`
+                    }
+                },
+            })
+            res.status(200).send({ message: 'Product selected by price', product})
+        }
+        catch (error) {
+            console.error(error);
+            res.status(500).send({ msg: "Error getting product", error });
+        }
+    },
 
-        Product.findAll({
+    async orderByPrice(req, res) {
+        try {
+            const product = await Product.findAll({
 
-            order: [
-                ['price', 'DESC'],
-            ]
-
-        })
-
-            .then(Products => res.send(Products))
-
-            .catch(err => {
-
-                console.log(err)
-
-                res.status(500).send({ message: 'Error loading categories' })
+                order: [
+                    ['price', 'DESC'],
+                ]
 
             })
+            res.status(200).send({ message: 'Products ordered by price', product })
+        }
+
+        catch (error) {
+            console.error(error);
+            res.status(500).send({ msg: "Error getting ordered products by price", error });
+        }
 
     }
 }
