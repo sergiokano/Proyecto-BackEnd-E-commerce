@@ -1,5 +1,5 @@
 
-const { Product, Sequelize } = require('../models/index.js');
+const { Product, Category, Sequelize } = require('../models/index.js');
 
 const { Op } = Sequelize;
 
@@ -8,6 +8,7 @@ const ProductController = {
     async create(req, res) {
         try {
             const product = await Product.create({ ...req.body })
+            // product.addCategory(req.body.CategoryId);
             res.status(201).send({ message: 'Product published', product })
 
         } catch (error) {
@@ -18,25 +19,17 @@ const ProductController = {
     },
 
     //El endpoint de traer productos debe mostrarse junto a la categoría o categorías que pertenece
-    getAll(req, res) {
-
-        Product.findAll({
-
-            // include: [Category]
-
-        })
-
-            .then(Products => res.send(Products))
-
-            .catch(err => {
-
-                console.log(err)
-
-                res.status(500).send({ message: 'Error loading categories' })
-
-            })
-
-    },
+    async getProductCategories(req, res) {
+        try {
+          const products = await Product.findAll({
+            include: [{ model: Category, attributes: ["name"], through: { attributes: [] } }],
+          });
+          res.send({ msg: "Your products", products });
+        } catch (error) {
+          console.error(error);
+          res.status(500).send({ msg: "Error while getting products", error });
+        }
+      },
 
     async delete(req, res) {
         try {
