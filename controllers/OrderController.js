@@ -1,7 +1,5 @@
 const { Order, Product } = require('../models/index.js');
 
-// const { Op } = Sequelize;
-
 const OrderController = {
 
     async create(req, res) {

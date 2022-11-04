@@ -46,8 +46,6 @@ const ProductController = {
         }
     },
 
-
-
     async update(req, res) {
         try {
             const product = await Product.update({ ...req.body },
