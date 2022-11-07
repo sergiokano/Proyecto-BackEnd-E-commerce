@@ -15,4 +15,6 @@ router.delete('/logout', authentication, UserController.logout)
 
 router.delete('/delete/:id', UserController.delete)
 
+router.get('/userSum', UserController.getAllbyUser)
+
 module.exports = router;

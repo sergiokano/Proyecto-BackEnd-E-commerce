@@ -1,5 +1,5 @@
 
-const { User, Token,Sequelize } = require('../models/index.js');
+const { User, Token, Sequelize, Order, Product } = require('../models/index.js');
 
 const bcrypt = require('bcryptjs');
 
@@ -97,7 +97,19 @@ const UserController = {
         res.send(
             'El usuario ha sido eliminado con éxito'
         )
-    }
+    },
+
+    async getAllbyUser(req, res) {
+        try {
+          const users = await User.findAll({
+            include:[{model: Order, include: [Product]}]
+          });
+          res.send({ msg: "Your products", users });
+        } catch (error) {
+          console.error(error);
+          res.status(500).send({ msg: "Error while getting products", error });
+        }
+      },
 
 }
 
