@@ -17,7 +17,6 @@ const ProductController = {
         }
 
     },
-
     //El endpoint de traer productos debe mostrarse junto a la categoría o categorías que pertenece
     async getProductCategories(req, res) {
         try {

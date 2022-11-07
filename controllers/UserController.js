@@ -55,6 +55,7 @@ const UserController = {
         })
 
     },
+
     async logout(req, res) {
         console.log('hola')
         try {
@@ -86,6 +87,7 @@ const UserController = {
         }
 
     },
+    
     async delete(req, res) {
         await User.destroy({
             where: {
