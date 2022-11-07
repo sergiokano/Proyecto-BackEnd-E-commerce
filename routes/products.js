@@ -6,11 +6,11 @@ const ProductController = require('../controllers/ProductController');
 const { authentication } = require('../middleware/authentication');
 
 
-router.post('/create', ProductController.create)
-router.put('/update/:id', ProductController.update)
+router.post('/create', authentication, ProductController.create)
+router.put('/update/:id', authentication, ProductController.update)
 // router.get('/', ProductController.getAll)
-router.delete('/delete/:id', ProductController.delete)
-router.get('/findbyId/:id', ProductController.getById)
+router.delete('/delete/:id', authentication, ProductController.delete)
+router.get('/findbyId/:id',  ProductController.getById)
 router.get('/findbyName/:name', ProductController.getOneByName)
 router.get('/findbyPrice/:price', ProductController.getOneByPrice)
 router.get('/orderbyPrice', ProductController.orderByPrice)
