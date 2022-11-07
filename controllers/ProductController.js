@@ -8,7 +8,7 @@ const ProductController = {
     async create(req, res) {
         try {
             const product = await Product.create({ ...req.body })
-            // product.addCategory(req.body.CategoryId);
+            product.addCategory(req.body.CategoryId);
             res.status(201).send({ message: 'Product published', product })
 
         } catch (error) {
@@ -17,7 +17,7 @@ const ProductController = {
         }
 
     },
-    //El endpoint de traer productos debe mostrarse junto a la categoría o categorías que pertenece
+
     async getProductCategories(req, res) {
         try {
           const products = await Product.findAll({

@@ -1,4 +1,4 @@
-const { Category } = require("../models/index.js");
+const { Category, Product } = require("../models/index.js");
 
 const CategoryController = {
   create(req, res) {
@@ -13,19 +13,16 @@ const CategoryController = {
       .catch(console.error);
   },
 
-  //El endpoint de traer Categoryos debe mostrarse junto a la categoría o categorías que pertenece
-  getAll(req, res) {
-    Category.findAll({
-      // include: [Category]
-    })
-
-      .then((Categories) => res.send(Categories))
-
-      .catch((err) => {
-        console.log(err);
-
-        res.status(500).send({ message: "Error loading categories" });
+  async getProductCategories(req, res) {
+    try {
+      const categories = await Category.findAll({
+        include: [{ model: Product, attributes: ["name"], through: { attributes: [] } }],
       });
+      res.send({ msg: "Your products", categories });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ msg: "Error while getting products", error });
+    }
   },
 
   async delete(req, res) {
