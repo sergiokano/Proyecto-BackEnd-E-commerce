@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 
 const { jwt_secret } = require('../config/config.json')['development']
 
-const {Op} = Sequelize;
+const { Op } = Sequelize;
 
 const UserController = {
 
@@ -87,7 +87,7 @@ const UserController = {
         }
 
     },
-    
+
     async delete(req, res) {
         await User.destroy({
             where: {
@@ -101,15 +101,15 @@ const UserController = {
 
     async getAllbyUser(req, res) {
         try {
-          const users = await User.findAll({
-            include:[{model: Order, include: [Product]}]
-          });
-          res.send({ msg: "Your products", users });
+            const users = await User.findAll({
+                include: [{ model: Order, include: [Product] }]
+            });
+            res.send({ msg: "Your products", users });
         } catch (error) {
-          console.error(error);
-          res.status(500).send({ msg: "Error while getting products", error });
+            console.error(error);
+            res.status(500).send({ msg: "Error while getting products", error });
         }
-      },
+    },
 
 }
 

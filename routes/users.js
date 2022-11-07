@@ -4,12 +4,12 @@ const router = express.Router();
 
 const UserController = require('../controllers/UserController')
 
-const {authentication} = require('../middleware/authentication')
+const { authentication } = require('../middleware/authentication')
 
 
 router.post('/create', UserController.create)
 
-router.post('/login',UserController.login)
+router.post('/login', UserController.login)
 
 router.delete('/logout', authentication, UserController.logout)
 

@@ -20,15 +20,15 @@ const ProductController = {
 
     async getProductCategories(req, res) {
         try {
-          const products = await Product.findAll({
-            include: [{ model: Category, attributes: ["name"], through: { attributes: [] } }],
-          });
-          res.send({ msg: "Your products", products });
+            const products = await Product.findAll({
+                include: [{ model: Category, attributes: ["name"], through: { attributes: [] } }],
+            });
+            res.send({ msg: "Your products", products });
         } catch (error) {
-          console.error(error);
-          res.status(500).send({ msg: "Error while getting products", error });
+            console.error(error);
+            res.status(500).send({ msg: "Error while getting products", error });
         }
-      },
+    },
 
     async delete(req, res) {
         try {
@@ -99,7 +99,7 @@ const ProductController = {
                     }
                 },
             })
-            res.status(200).send({ message: 'Product selected by price', product})
+            res.status(200).send({ message: 'Product selected by price', product })
         }
         catch (error) {
             console.error(error);

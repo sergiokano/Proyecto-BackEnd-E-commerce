@@ -4,14 +4,14 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Order extends Model {
-    
+
     static associate(models) {
       Order.belongsTo(models.User)
-      Order.belongsToMany(models.Product,{
+      Order.belongsToMany(models.Product, {
 
-        through:models.ProductOrder
-        
-        })
+        through: models.ProductOrder
+
+      })
     }
   }
   Order.init({
