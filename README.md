@@ -1,11 +1,17 @@
 <h1 align="center"> BACKEND PROJECT <project-name></h1>
 
-## Comenzando 🚀
+## Introduction 🚀
 
 This project has been made using node + express, moreover mysql + sequelize.
 It is about an e-commerce, exactly is the backend of the online shop.
 
 <br>
+
+It is based on this diagram for set the database and the relations of the tables with sequelize.
+
+![foto](assets/Sin%20t%C3%ADtulo.png)
+
+![foto](assets/database.png)
 
 ## Estructure 🛠️
 
@@ -13,11 +19,40 @@ It is about an e-commerce, exactly is the backend of the online shop.
 
 The project contains different points:
 - Users registered using Bcrypt.
+
+The users registered will have his password crypted by Bcrypt.
+
+![foto](assets/bcrypt.png)
+
 - Users login + Token + Middleware.
-- CRUD categories and CRUD users.
+
+The login will generate a token that will keep the user's session up.
+
+![foto](assets/crypt.png)
+
+- CRUD endpoints.
+
+We will work with the CRUD enpoints set in the routes and controllers folders. In the routes we will set the endpoint and in the controllers
+we setup the logic for these endpoints.
+
+![foto](assets/controllers.png)
+
+![foto](assets/routes.png)
+
 - Different relations many to many and one to many.
+
+The relations between the tables can be found in the models. These models plus the migrations folder generate the tables in the database.
+
+![foto](assets/migrations.png)
+
+![foto](assets/models.png)
+
 - Seeders use.
   
+There are also some seeders prepared for help the user testing the database.
+
+![foto](assets/seeders.png)
+
   <br>
   
   ## Social Networks 👨‍💻️
