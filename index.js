@@ -1,6 +1,6 @@
 const express = require('express');
-
 const app = express();
+const { typeError } = require('./middleware/errors');
 const cors = require("cors")
 
 const PORT = 8080
