@@ -58,9 +58,9 @@ const UserController = {
 
     getUserInfo(req, res) {
 
-        User.findAll({
-        })
-            .then(Users => res.send(Users))
+        User.findByPk(req.user.id
+        )
+            .then(user => res.send(user))
             .catch(err => {
                 console.log(err)
                 res.status(500).send({ message: 'Error loading users' })
