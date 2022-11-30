@@ -13,4 +13,4 @@ router.delete('/delete/:id', UserController.delete)
 
 router.get('/userSum', UserController.getAllbyUser)
 
-module.exports = router;
+module.exports = router
