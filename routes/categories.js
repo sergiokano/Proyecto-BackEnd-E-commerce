@@ -7,6 +7,7 @@ const CategoryController = require('../controllers/CategoryController')
 router.post('/create', CategoryController.create)
 router.put('/update/:id', CategoryController.update)
 router.delete('/delete/:id', CategoryController.delete)
-router.get('/list', CategoryController.getProductCategories)
+router.get('/findbyId/:id', CategoryController.getById)
+router.get('/findbyName/:name', CategoryController.getOneByName)
 
 module.exports = router;
