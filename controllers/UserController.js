@@ -1,12 +1,8 @@
 
-const { User, Token, Sequelize, Order, Product } = require('../models/index.js');
-
+const { User, Token, Sequelize } = require('../models/index.js');
 const bcrypt = require('bcryptjs');
-
 const jwt = require('jsonwebtoken');
-
 const { jwt_secret } = require('../config/config.json')['development']
-
 const { Op } = Sequelize;
 
 const UserController = {
@@ -53,6 +49,18 @@ const UserController = {
             res.send({ message: 'Bienvenid@ ' + user.name, user, token });
 
         })
+
+    },
+
+    getUserInfo(req, res) {
+
+        User.findByPk(req.user.id
+        )
+            .then(user => res.send(user))
+            .catch(err => {
+                console.log(err)
+                res.status(500).send({ message: 'Error loading users' })
+            })
 
     },
 
