@@ -1,5 +1,5 @@
 
-const { User, Token,Sequelize } = require('../models/index.js');
+const { User, Token, Sequelize } = require('../models/index.js');
 
 const bcrypt = require('bcryptjs');
 
@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 
 const { jwt_secret } = require('../config/config.json')['development']
 
-const {Op} = Sequelize;
+const { Op } = Sequelize;
 
 const UserController = {
 
@@ -55,6 +55,19 @@ const UserController = {
         })
 
     },
+
+    getUserInfo(req, res) {
+
+        User.findAll({
+        })
+            .then(Users => res.send(Users))
+            .catch(err => {
+                console.log(err)
+                res.status(500).send({ message: 'Error loading users' })
+            })
+
+    },
+
     async logout(req, res) {
         console.log('hola')
         try {
