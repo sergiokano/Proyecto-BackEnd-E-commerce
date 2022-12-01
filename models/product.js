@@ -11,7 +11,9 @@ module.exports = (sequelize, DataTypes) => {
       Product.belongsToMany(models.Order, {
         through: models.ProductOrder,
       }),
-        Product.belongsTo(models.Category);
+      Product.belongsToMany(models.Category, {
+        through: models.ProductCategory,
+      })
     }
   }
   Product.init(
@@ -27,10 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       description: {
         type: DataTypes.STRING,
         validate: { notEmpty: { args: true, msg: "no empty" } },
-      },
-      category_id: {
-        type: DataTypes.INTEGER,
-      },
+      }
     },
     {
       sequelize,
