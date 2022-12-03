@@ -1,8 +1,8 @@
 {
   "development": {
-    "username": "root",
-    "password": "sergiocano",
-    "database": "e-commerce proyecto",
+    "username": "Miguel Herrera",
+    "password": "CarpeDiem4219yz?",
+    "database": "e_commerce3",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "jwt_secret": "mimamamemima"
