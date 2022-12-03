@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Product extends Model {
     /**
@@ -11,24 +9,32 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Product.belongsToMany(models.Order, {
-
-        through: models.ProductOrder
-
+        through: models.ProductOrder,
       }),
-        Product.belongsToMany(models.Category, {
-
-          through: models.ProductCategory
-
-        })
+      Product.belongsToMany(models.Category, {
+        through: models.ProductCategory,
+      })
     }
   }
-  Product.init({
-    name: { type: DataTypes.STRING, validate: { notEmpty: { args: true, msg: "no empty" } } },
-    price: { type: DataTypes.STRING, validate: { notEmpty: { args: true, msg: "no empty" } } },
-    description: { type: DataTypes.STRING, validate: { notEmpty: { args: true, msg: "no empty" } } }
-  }, {
-    sequelize,
-    modelName: 'Product',
-  });
+  Product.init(
+    {
+      name: {
+        type: DataTypes.STRING,
+        validate: { notEmpty: { args: true, msg: "no empty" } },
+      },
+      price: {
+        type: DataTypes.STRING,
+        validate: { notEmpty: { args: true, msg: "no empty" } },
+      },
+      description: {
+        type: DataTypes.STRING,
+        validate: { notEmpty: { args: true, msg: "no empty" } },
+      }
+    },
+    {
+      sequelize,
+      modelName: "Product",
+    }
+  );
   return Product;
 };

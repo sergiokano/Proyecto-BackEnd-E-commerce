@@ -1,4 +1,6 @@
-const { Category, Product } = require("../models/index.js");
+const { Category, Sequelize } = require("../models/index.js");
+
+const { Op } = Sequelize;
 
 const CategoryController = {
   create(req, res) {
@@ -13,17 +15,20 @@ const CategoryController = {
       .catch(console.error);
   },
 
-  async getProductCategories(req, res) {
-    try {
-      const categories = await Category.findAll({
-        include: [{ model: Product, attributes: ["name"], through: { attributes: [] } }],
-      });
-      res.send({ msg: "Your products", categories });
-    } catch (error) {
-      console.error(error);
-      res.status(500).send({ msg: "Error while getting products", error });
-    }
-  },
+  //El endpoint de traer Categoryos debe mostrarse junto a la categoría o categorías que pertenece
+//   getAll(req, res) {
+//     Category.findAll({
+//       // include: [Category]
+//     })
+
+//       .then((Categories) => res.send(Categories))
+
+//       .catch((err) => {
+//         console.log(err);
+
+//         res.status(500).send({ message: "Error loading categories" });
+//       });
+//   },
 
   async delete(req, res) {
     await Category.destroy({
@@ -45,6 +50,34 @@ const CategoryController = {
     );
     res.send("La categoría ha sido actualizada con éxito");
   },
+
+  async delete(req, res) {
+    await Category.destroy({
+      where: {
+        id: req.query.id,
+      },
+    });
+    res.send("La categoría ha sido eliminada con éxito");
+  },
+
+  getById(req, res) {
+    Category.findByPk(req.params.id).then((category) => res.send(category));
+  },
+
+  getOneByName(req, res) {
+    Category.findOne({
+        where: {
+            name: {
+                [Op.like]: `%${req.params.name}%`
+            }
+        },
+    })
+        .then(Category => res.send(Category))
+},
+getBy(req, res) {
+    Product.findByPk(req.params.id)
+        .then(post => res.send(post))
+}
 };
 
 module.exports = CategoryController;
