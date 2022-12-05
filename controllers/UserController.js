@@ -1,4 +1,4 @@
-const { User, Token, Sequelize } = require("../models/index.js");
+const { User, Token, Order, Product,Sequelize } = require("../models/index.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { jwt_secret } = require("../config/config.json")["development"];
@@ -41,7 +41,9 @@ const UserController = {
   },
 
   getUserInfo(req, res) {
-    User.findByPk(req.user.id)
+    User.findByPk(req.user.id,{
+        include: [{ model: Order, include: [Product] }],
+      })
       .then((user) => res.send(user))
       .catch((err) => {
         console.log(err);
