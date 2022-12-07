@@ -16,17 +16,13 @@ const UserController = {
         confirmed: false,
         role: "user",
       });
-      console.log("entras1")
       const emailToken = jwt.sign({ email: req.body.email }, jwt_secret, { expiresIn: '48h' })
-      console.log("entras2")
-
       const url = 'http://localhost:8080/users/confirm/' + emailToken
       await transporter.sendMail({
         to: req.body.email,
         subject: "Please, confirm your registration",
         html: `<h3>You're getting closer to be registered</h3>
-                <a href="${url}"> Click here to confirm your registration</a>
-                `,
+                <a href="${url}"> Click here to confirm your registration</a>`,
       });
       res.status(201).send({
         message: "Please, check check your email to confirm your registration", user
