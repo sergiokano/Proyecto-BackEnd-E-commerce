@@ -38,7 +38,7 @@ const typeError = (err, req, res, next) => {
 
     } else {
 
-        res.status(500).send({ msg: "Hubo un problema" });
+        res.status(500).send({ msg: "Hubo un problema" ,err});
 
     }
 
