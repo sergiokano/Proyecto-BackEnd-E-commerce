@@ -16,17 +16,17 @@ const UserController = {
         confirmed: false,
         role: "user",
       });
-      const emailToken = jwt.sign({ email: req.body.email }, jwt_secret, { expiresIn: '48h' })
-      const url = 'http://localhost:8080/users/confirm/' + emailToken
-      await transporter.sendMail({
-        to: req.body.email,
-        subject: "Please, confirm your registration",
-        html: `<h3>You're getting closer to be registered</h3>
-                <a href="${url}"> Click here to confirm your registration</a>`,
-      });
-      res.status(201).send({
-        message: "Please, check check your email to confirm your registration", user
-      });
+      // const emailToken = jwt.sign({ email: req.body.email }, jwt_secret, { expiresIn: '48h' })
+      // const url = 'http://localhost:8080/users/confirm/' + emailToken
+      // await transporter.sendMail({
+      //   to: req.body.email,
+      //   subject: "Please, confirm your registration",
+      //   html: `<h3>You're getting closer to be registered</h3>
+      //           <a href="${url}"> Click here to confirm your registration</a>`,
+      // });
+      // res.status(201).send({
+      //   message: "Please, check your email to confirm your registration", user
+      // });
     } catch (error) {
       console.error(error)
       error.origin = "User";
@@ -34,20 +34,20 @@ const UserController = {
     };
   },
 
-  async confirm(req, res) {
-    try {
-      const token = req.params.emailToken
-      const payload = jwt.verify(token, jwt_secret)
-      User.update({ confirmed: true }, {
-        where: {
-          email: payload.email
-        }
-      })
-      res.status(201).send("User susccessfully confirmed");
-    } catch (error) {
-      console.error(error)
-    }
-  },
+  // async confirm(req, res) {
+  //   try {
+  //     const token = req.params.emailToken
+  //     const payload = jwt.verify(token, jwt_secret)
+  //     User.update({ confirmed: true }, {
+  //       where: {
+  //         email: payload.email
+  //       }
+  //     })
+  //     res.status(201).send("User susccessfully confirmed");
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // },
 
   login(req, res) {
     User.findOne({
@@ -67,9 +67,9 @@ const UserController = {
           .status(400)
           .send({ message: "Incorrect user or password" });
       }
-      if (!user.confirmed) {
-        return res.status(400).send({ message: "Your email must be confirmed" })
-      }
+      // if (!user.confirmed) {
+      //   return res.status(400).send({ message: "Your email must be confirmed" })
+      // }
       const token = jwt.sign({ id: user.id }, jwt_secret);
       Token.create({ token, UserId: user.id });
       res.send({ message: "Bienvenid@ " + user.name, user, token });
