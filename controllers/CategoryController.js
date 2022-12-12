@@ -15,7 +15,7 @@ const CategoryController = {
       .catch(console.error);
   },
 
-  //El endpoint de traer Categoryos debe mostrarse junto a la categoría o categorías que pertenece
+  //El endpoint de traer Categories debe mostrarse junto a la categoría o categorías que pertenece
 //   getAll(req, res) {
 //     Category.findAll({
 //       // include: [Category]
